@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS ACADEMY - Control de Acceso Escolar</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Iconos remotos para diseño moderno -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="main-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>NEXUS <span>ACADEMY</span></h1>
+                    <p>Sistema Inteligente de Registro y Entrada</p>
+                </div>
+            </div>
+            <div class="system-status">
+                <span class="status-dot online"></span>
+                <span class="status-text">Terminal Activa</span>
+            </div>
+        </header>
+
+        <!-- DASHBOARD STATS -->
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Alumnos</h3>
+                    <p class="stat-number" id="total-students">128</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Registrados Hoy</h3>
+                    <p class="stat-number" id="present-students">94</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon amber">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Retardos</h3>
+                    <p class="stat-number" id="late-students">6</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT GRID -->
+        <main class="main-content">
+            <!-- REGISTRATION FORM CARD -->
+            <section class="card form-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-user-plus"></i> Registro de Entrada</h2>
+                    <p>Inscribe el acceso de un nuevo alumno</p>
+                </div>
+                <form id="entry-form" class="entry-form">
+                    <div class="form-group">
+                        <label for="student-name">Nombre Completo</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="student-name" placeholder="Ej. Sofía Alarcón" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="student-id">Matrícula / ID</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-id-card"></i>
+                                <input type="text" id="student-id" placeholder="NX-2089" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="student-grade">Grado y Grupo</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                                <select id="student-grade" required>
+                                    <option value="" disabled selected>Seleccionar...</option>
+                                    <option value="1º A">1º A</option>
+                                    <option value="1º B">1º B</option>
+                                    <option value="2º A">2º A</option>
+                                    <option value="2º B">2º B</option>
+                                    <option value="3º A">3º A</option>
+                                    <option value="3º B">3º B</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entry-status">Estado de Entrada</label>
+                        <div class="status-selector">
+                            <label class="status-option option-ontime">
+                                <input type="radio" name="entry-status" value="A tiempo" checked>
+                                <span class="custom-radio"></span>
+                                <span class="label-text">A tiempo</span>
+                            </label>
+                            <label class="status-option option-late">
+                                <input type="radio" name="entry-status" value="Retardo">
+                                <span class="custom-radio"></span>
+                                <span class="label-text">Retardo</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span>Registrar Acceso</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </button>
+                </form>
+            </section>
+
+            <!-- DATABASE / LIST CARD -->
+            <section class="card list-card">
+                <div class="card-header list-header">
+                    <div>
+                        <h2><i class="fa-solid fa-list-check"></i> Registro de Accesos Recientes</h2>
+                        <p>Historial de entradas del día de hoy</p>
+                    </div>
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="search-input" placeholder="Buscar alumno o matrícula...">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>Alumno</th>
+                                <th>Matrícula</th>
+                                <th>Grado</th>
+                                <th>Hora de Entrada</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-list">
+                            <!-- Fila de ejemplo 1 -->
+                            <tr>
+                                <td>
+                                    <div class="student-profile">
+                                        <div class="avatar">AM</div>
+                                        <span class="name">Alejandro Mendoza</span>
+                                    </div>
+                                </td>
+                                <td><span class="badge-id">NX-4821</span></td>
+                                <td>3º A</td>
+                                <td>07:45 AM</td>
+                                <td><span class="status-badge ontime">A tiempo</span></td>
+                                <td>
+                                    <button class="btn-action delete" title="Eliminar Registro">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Fila de ejemplo 2 -->
+                            <tr>
+                                <td>
+                                    <div class="student-profile">
+                                        <div class="avatar">VP</div>
+                                        <span class="name">Valeria Portillo</span>
+                                    </div>
+                                </td>
+                                <td><span class="badge-id">NX-9012</span></td>
+                                <td>2º B</td>
+                                <td>08:05 AM</td>
+                                <td><span class="status-badge late">Retardo</span></td>
+                                <td>
+                                    <button class="btn-action delete" title="Eliminar Registro">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <p>Mostrando <span id="displayed-count">2</span> registros</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
